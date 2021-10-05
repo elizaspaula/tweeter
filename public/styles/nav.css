@@ -1,0 +1,23 @@
+.nav-bar {
+  display: flex;
+  height: 120px;
+  width: 100%;
+  background: #4056a1;
+  color: #ffffff;
+  padding: 2em 1.5em 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-bar .title {
+  font-family: "Bungee", cursive;
+}
+
+.nav-bar .bold {
+  font-weight: bold;
+}
+
+.nav-bar .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
