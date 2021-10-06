@@ -27,3 +27,6 @@
   background: #4056a1;
   border: none;
 }
+output.counter.red {
+  color: red;
+}
