@@ -1,0 +1,66 @@
+article.tweet {
+  border: 3px #333 solid;
+  padding: 0.5em;
+  margin: 2.5em 0 0;
+  transition: 300ms;
+  border-radius: 6px;
+}
+
+article.tweet:hover {
+  box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.25),
+    0 3px 7px -3px rgba(0, 0, 0, 0.3);
+}
+
+article.tweet header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}
+
+article.tweet header .name {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+article.tweet header .name i {
+  font-size: 55px;
+}
+
+article.tweet header .username {
+  color: #979191;
+}
+
+article.tweet p {
+  padding: 0.5em;
+  margin: 0;
+}
+
+article.tweet footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 3px #333 solid;
+  padding: 0.5em 0.5em 0;
+}
+article.tweet footer .icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+article.tweet footer .icons i:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+article.tweet footer .icons i {
+  transition: 300ms;
+}
+
+article.tweet footer .time {
+  font-size: 16px;
+  color: #333;
+}
