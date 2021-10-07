@@ -5,6 +5,7 @@
  */
 
 const renderTweets = function (tweets) {
+  //clear the container before to read all tweets
   $("#tweets-container").empty();
   // // loops through tweets
   for (let tweet of tweets) {
@@ -56,6 +57,7 @@ const loadTweets = function () {
     .then((data) => {
       const sorted = data.sort((a, b) => b.created_at - a.created_at);
       renderTweets(sorted);
+      $("#tweet-text").focus();
     })
     .catch((error) => {
       console.log("error:", error);
@@ -70,12 +72,22 @@ $(document).ready(function () {
 
     const textArea = $(".new-tweet form textarea");
 
+    $(".alert").empty();
+
     if (textArea.val().length > 140) {
-      alert("Your message is too long");
+      $(".alert").append(
+        "Your message is too long. Please respect our limit of 140 chars."
+      );
+      $(".alert").slideDown();
+      $(".tweet-button").prop("disabled", true);
+      $("#tweet-text").focus();
       return;
     }
     if (textArea.val().length === 0) {
-      alert("The message can't be blank");
+      $(".alert").append("The tweet can't be blank.");
+      $(".alert").slideDown();
+      $(".tweet-button").prop("disabled", true);
+      $("#tweet-text").focus();
       return;
     }
 
@@ -90,10 +102,12 @@ $(document).ready(function () {
         textArea.val(""); //clean text box after post
         const counter = $(".counter");
         counter.val(140); //reload counter to 140 after post
+        $(".alert").slideUp();
       })
       .catch((error) => {
         console.log("error:", error);
       });
   });
   loadTweets();
+  $(".alert").hide();
 });
