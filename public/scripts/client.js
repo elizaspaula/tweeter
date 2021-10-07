@@ -4,33 +4,8 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// Fake data taken from initial-tweets.json
-const data = [
-  {
-    user: {
-      name: "Newton",
-      avatars: "https://i.imgur.com/73hZDYK.png",
-      handle: "@SirIsaac",
-    },
-    content: {
-      text: "If I have seen further it is by standing on the shoulders of giants",
-    },
-    created_at: 1461116232227,
-  },
-  {
-    user: {
-      name: "Descartes",
-      avatars: "https://i.imgur.com/nlhLi3I.png",
-      handle: "@rd",
-    },
-    content: {
-      text: "Je pense , donc je suis",
-    },
-    created_at: 1461113959088,
-  },
-];
-
 const renderTweets = function (tweets) {
+  $("#tweets-container").empty();
   // // loops through tweets
   for (let tweet of tweets) {
     // // calls createTweetElement for each tweet
@@ -72,7 +47,10 @@ const loadTweets = function () {
     url: "/tweets",
     method: "GET",
   })
-    .then(renderTweets)
+    .then((data) => {
+      const sorted = data.sort((a, b) => b.created_at - a.created_at);
+      renderTweets(sorted);
+    })
     .catch((error) => {
       console.log("error:", error);
     });
@@ -81,15 +59,16 @@ const loadTweets = function () {
 $(document).ready(function () {
   $("form").on("submit", function (event) {
     event.preventDefault();
+
     const textValue = $("form").serialize();
 
-    const textArea = $(".new-tweet form textarea").val();
+    const textArea = $(".new-tweet form textarea");
 
-    if (textArea.length > 140) {
+    if (textArea.val().length > 140) {
       alert("Your message is too long");
       return;
     }
-    if (textArea.length === 0) {
+    if (textArea.val().length === 0) {
       alert("The message can't be blank");
       return;
     }
@@ -100,13 +79,15 @@ $(document).ready(function () {
       url: "/tweets",
     })
       .then((result) => {
-        console.log("ajax callback called");
         console.log("result", result);
+        loadTweets();
+        textArea.val("");
+        const counter = $(".counter");
+        counter.val(140);
       })
       .catch((error) => {
         console.log("error:", error);
       });
   });
-
   loadTweets();
 });
