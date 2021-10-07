@@ -67,10 +67,33 @@ const createTweetElement = function (tweetData) {
   return $tweet;
 };
 
+const loadTweets = function () {
+  $.ajax({
+    url: "/tweets",
+    method: "GET",
+  })
+    .then(renderTweets)
+    .catch((error) => {
+      console.log("error:", error);
+    });
+};
+
 $(document).ready(function () {
   $("form").on("submit", function (event) {
     event.preventDefault();
     const textValue = $("form").serialize();
+
+    const textArea = $(".new-tweet form textarea").val();
+
+    if (textArea.length > 140) {
+      alert("Your message is too long");
+      return;
+    }
+    if (textArea.length === 0) {
+      alert("The message can't be blank");
+      return;
+    }
+
     $.ajax({
       data: textValue,
       method: "POST",
@@ -85,12 +108,5 @@ $(document).ready(function () {
       });
   });
 
-  $.ajax({
-    url: "/tweets",
-    method: "GET",
-  })
-    .then(renderTweets)
-    .catch((error) => {
-      console.log("error:", error);
-    });
+  loadTweets();
 });
