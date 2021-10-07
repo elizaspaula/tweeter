@@ -15,6 +15,12 @@ const renderTweets = function (tweets) {
     $("#tweets-container").append($tweet);
   }
 };
+//Function to convert the input in the textArea to a text.
+const escape = function (str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
 
 const createTweetElement = function (tweetData) {
   TweeTime = timeago.format(tweetData.created_at);
@@ -28,7 +34,7 @@ const createTweetElement = function (tweetData) {
     `</div>` +
     `<div>${tweetData.user.handle}</div>` +
     `</header>` +
-    `<p>${tweetData.content.text}</p>` +
+    `<p>${escape(tweetData.content.text)}</p>` +
     `<footer>` +
     `<div class="time"> ${TweeTime} </div>` +
     `<div class="icons">` +
@@ -80,10 +86,10 @@ $(document).ready(function () {
     })
       .then((result) => {
         console.log("result", result);
-        loadTweets();
-        textArea.val("");
+        loadTweets(); //load the new tweet
+        textArea.val(""); //clean text box after post
         const counter = $(".counter");
-        counter.val(140);
+        counter.val(140); //reload counter to 140 after post
       })
       .catch((error) => {
         console.log("error:", error);
