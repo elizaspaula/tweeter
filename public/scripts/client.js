@@ -32,20 +32,19 @@ const data = [
 
 const renderTweets = function (tweets) {
   // // loops through tweets
-  for (let i in tweets) {
+  for (let tweet of tweets) {
     // // calls createTweetElement for each tweet
-    $tweet = createTweetElement(tweets[i]);
+    $tweet = createTweetElement(tweet);
 
     // // takes return value and appends it to the tweets container
-    console.log("tweet:", $tweet);
-    $("#tweets-container").prepend($tweet);
+    $("#tweets-container").append($tweet);
   }
 };
 
 const createTweetElement = function (tweetData) {
   TweeTime = timeago.format(tweetData.created_at);
 
-  let $tweet =
+  const $tweet =
     `<article class="tweet">` +
     `<header>` +
     `<div class="name">` +
@@ -68,23 +67,22 @@ const createTweetElement = function (tweetData) {
   return $tweet;
 };
 
-renderTweets(data);
-
-// $(document).ready(function () {
-//   $("form").on("submit", function (event) {
-//     event.preventDefault();
-//     //console.log("The default event result has been prevent");
-
-//     $.ajax({
-//       data: data,
-//       method: "GET",
-//     })
-//       .then((result) => {
-//         console.log("ajax callback called");
-//         console.log("result", result);
-//       })
-//       .catch((error) => {
-//         console.log("error:", error);
-//       });
-//   });
-// });
+$(document).ready(function () {
+  renderTweets(data);
+  $("form").on("submit", function (event) {
+    event.preventDefault();
+    const textValue = $("form").serialize();
+    $.ajax({
+      data: textValue,
+      method: "POST",
+      url: "/tweets",
+    })
+      .then((result) => {
+        console.log("ajax callback called");
+        console.log("result", result);
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
+  });
+});
