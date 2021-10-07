@@ -17,8 +17,10 @@ html {
  */
 
 body {
+  display: flex;
+  flex-direction: column;
   color: #545149;
-  background-color: #f4f1ec;
+  background-color: #ffe6bc;
   font-size: 24px;
   font-family: "Source Sans Pro", sans-serif;
 }
@@ -26,6 +28,15 @@ body {
 .container {
   width: 90%;
   margin: 0 auto;
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    flex-direction: row;
+  }
+  .container {
+    margin: 160px 10px;
+  }
 }
 
 /*
