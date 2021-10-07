@@ -68,7 +68,6 @@ const createTweetElement = function (tweetData) {
 };
 
 $(document).ready(function () {
-  renderTweets(data);
   $("form").on("submit", function (event) {
     event.preventDefault();
     const textValue = $("form").serialize();
@@ -85,4 +84,13 @@ $(document).ready(function () {
         console.log("error:", error);
       });
   });
+
+  $.ajax({
+    url: "/tweets",
+    method: "GET",
+  })
+    .then(renderTweets)
+    .catch((error) => {
+      console.log("error:", error);
+    });
 });
