@@ -1,5 +1,6 @@
-//Function to count the number of chars into the text Area
-
+/**
+ * Function to count the number of chars into the text Area
+ */
 $(document).ready(function () {
   $(".new-tweet form textarea").on("input", function () {
     $(".tweet-button").prop("disabled", false);
