@@ -1,4 +1,4 @@
-.new-tweet {
+section.new-tweet {
   margin: 1.5em 0 0 0;
 }
 
@@ -26,7 +26,26 @@
   color: white;
   background: #4056a1;
   border: none;
+  border-radius: 3px;
 }
 output.counter.red {
   color: red;
+}
+
+.new-tweet .alert {
+  padding: 10px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+  color: red;
+  margin: 1.5em 0;
+  border: 3px red solid;
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+.new-tweet .alert i {
+  margin: 10px;
 }
