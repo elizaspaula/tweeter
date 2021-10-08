@@ -1,30 +1,31 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
+/**
+ * Function renderTweets: this function render the tweets from the database into the tweets container
+ * @param {*} tweets tweets for render
  */
-
 const renderTweets = function (tweets) {
-  //clear the container before to read all tweets
   $("#tweets-container").empty();
-  // // loops through tweets
   for (let tweet of tweets) {
-    // // calls createTweetElement for each tweet
     $tweet = createTweetElement(tweet);
-
-    // // takes return value and appends it to the tweets container
     $("#tweets-container").append($tweet);
   }
 };
-//Function to convert the input in the textArea to a text.
+/**
+ *Function escape: this function convert the data to text.
+ * @param {*} str
+ * @returns
+ */
 const escape = function (str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
-
+/**
+ * Function createTweetElement: this function create a new HTML article for the tweet and add it to the tweets-container.
+ * @param {*} tweetData
+ * @returns
+ */
 const createTweetElement = function (tweetData) {
-  TweeTime = timeago.format(tweetData.created_at);
+  TweeTime = timeago.format(tweetData.created_at); //method to display the time passed since a tweet was created.
 
   const $tweet =
     `<article class="tweet">` +
@@ -48,14 +49,16 @@ const createTweetElement = function (tweetData) {
 
   return $tweet;
 };
-
+/**
+ *Function loadTweets: this function will use jQuery to make a request to /tweets and receive the array of tweets as JSON
+ */
 const loadTweets = function () {
   $.ajax({
     url: "/tweets",
     method: "GET",
   })
     .then((data) => {
-      const sorted = data.sort((a, b) => b.created_at - a.created_at);
+      const sorted = data.sort((a, b) => b.created_at - a.created_at); //sort the tweet by descending order
       renderTweets(sorted);
       $("#tweet-text").focus();
     })
@@ -75,6 +78,7 @@ $(document).ready(function () {
     $(".alert").empty();
 
     if (textArea.val().length > 140) {
+      //valid if the textArea has more than 140 chars.
       $(".alert").append(
         "Your message is too long. Please respect our limit of 140 chars."
       );
@@ -99,10 +103,10 @@ $(document).ready(function () {
       .then((result) => {
         console.log("result", result);
         loadTweets(); //load the new tweet
-        textArea.val(""); //clean text box after post
+        textArea.val(""); //clean textArea after post a new tweet
         const counter = $(".counter");
-        counter.val(140); //reload counter to 140 after post
-        $(".alert").slideUp();
+        counter.val(140); //reload counter to 140 after post a new tweet.
+        $(".alert").slideUp(); //remove the alert from the page.
       })
       .catch((error) => {
         console.log("error:", error);
