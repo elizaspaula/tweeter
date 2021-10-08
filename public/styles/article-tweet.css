@@ -24,7 +24,7 @@ article.tweet header .name {
   align-items: center;
 }
 
-article.tweet header .name i {
+article.tweet header .name img {
   font-size: 55px;
 }
 
